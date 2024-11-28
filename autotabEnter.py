@@ -11,9 +11,8 @@ def readConfig(settingsFile):
             data = json.load(json_file)
     else:
         data = {
-            "keyPress": "a",
-            "timer": 200,
-            "delayStart" : 30
+            "delayStart" : 30,
+            "delayBetween" : 1
         }
         # Serializing json
         json_object = json.dumps(data, indent=4)
@@ -43,14 +42,20 @@ print("Current working directory:", cwd)
 #Read Config File
 settingsFile = os.path.join(cwd, "appconfig.json")
 config = readConfig(settingsFile)
-keyPress = config["keyPress"]
-timer = config["timer"]
+delayStart = config["delayStart"]
+delayBetween = config["delayBetween"]
 
 print(f"Ready, wait {delayStart} Seconds to start")
 sleep(delayStart)
-while True:
-    # Press and release space
-    keyboard.press(keyPress)
-    keyboard.release(keyPress)
 
-    sleep(timer)
+keyboard.press(Key.tab)
+keyboard.release(Key.tab)
+
+sleep(delayBetween)
+keyboard.press(Key.tab)
+keyboard.release(Key.tab)     
+sleep(delayBetween)
+
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
+print(f"End")
