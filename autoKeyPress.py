@@ -13,7 +13,8 @@ def readConfig(settingsFile):
         data = {
             "keyPress": "a",
             "timer": 200,
-            "delayStart" : 30
+            "delayStart" : 30,
+            "runAlways" : True
         }
         # Serializing json
         json_object = json.dumps(data, indent=4)
@@ -45,12 +46,20 @@ settingsFile = os.path.join(cwd, "appconfig.json")
 config = readConfig(settingsFile)
 keyPress = config["keyPress"]
 timer = config["timer"]
+delayStart = config["delayStart"]
+runAlways = config["runAlways"]
 
 print(f"Ready, wait {delayStart} Seconds to start")
 sleep(delayStart)
-while True:
+while runAlways:
     # Press and release space
     keyboard.press(keyPress)
     keyboard.release(keyPress)
+    print(f"Key {keyPress} Pressed")
 
     sleep(timer)
+else:
+    keyboard.press(keyPress)
+    keyboard.release(keyPress)
+    print(f"Key {keyPress} Pressed")
+print("End")
