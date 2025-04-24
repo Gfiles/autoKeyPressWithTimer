@@ -11,10 +11,10 @@ def readConfig(settingsFile):
             data = json.load(json_file)
     else:
         data = {
-            "keyPress": "a",
+            "keyPress": "Enter",
             "timer": 200,
             "delayStart" : 30,
-            "runAlways" : True
+            "runAlways" : False
         }
         # Serializing json
         json_object = json.dumps(data, indent=4)
@@ -52,14 +52,22 @@ runAlways = config["runAlways"]
 print(f"Ready, wait {delayStart} Seconds to start")
 sleep(delayStart)
 while runAlways:
-    # Press and release space
-    keyboard.press(keyPress)
-    keyboard.release(keyPress)
+    # Press and release Key
+    if keyPress == "Enter":
+        keyboard.press(Key.enter)
+        keyboard.release(Key.enter)
+    else:
+        keyboard.press(keyPress)
+        keyboard.release(keyPress)
     print(f"Key {keyPress} Pressed")
 
     sleep(timer)
 else:
-    keyboard.press(keyPress)
-    keyboard.release(keyPress)
+    if keyPress == "Enter":
+        keyboard.press(Key.enter)
+        keyboard.release(Key.enter)
+    else:
+        keyboard.press(keyPress)
+        keyboard.release(keyPress)
     print(f"Key {keyPress} Pressed")
 print("End")
